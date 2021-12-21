@@ -7,6 +7,46 @@
     <!--singleton 默认值，单例的    无参构造-->
    <!-- <bean id="userDao" class="com.bt.factory.StaticFactory " factory-method="getUserDao"></bean>-->
     <!--  <bean id="userDao" class="com.bt.dao.impl.UserDaoImpl" scope="prototype"></bean>--> <!--prototype 多例的-->
-    <bean id="factory" class="com.bt.factory.DynamicFactory"></bean>
-    <bean id="userDao" factory-bean="factory" factory-method="getUserDao"></bean>
+ <!--   <bean id="factory" class="com.bt.factory.DynamicFactory"></bean>
+    <bean id="userDao" factory-bean="factory" factory-method="getUserDao"></bean>-->
+
+
+   <!-- <bean id="userDao" class="com.bt.dao.impl.UserDaoImpl">
+        <property name="username" value="zhangsan"></property>
+        <property name="age" value="19"></property>
+    </bean>-->
+    <bean id="userService" class="com.bt.service.impl.UserServiceImpl" >
+        <constructor-arg name="userDao" ref="userDao"> </constructor-arg>
+    </bean>
+    <bean id="userDao" class="com.bt.dao.impl.UserDaoImpl">
+        <property name="strlist" >
+            <list>
+                <value>aaa</value>
+                <value>cccc</value>
+                <value>dddd</value>
+            </list>
+        </property>
+        <property name="userMap">
+            <map>
+                <entry key="u1" value-ref="user1"></entry>
+                <entry key="u2" value-ref="user2"></entry>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="p1"  >pp1</prop>
+                <prop key="p2"  >pp2</prop>
+                <prop key="p3"  >pp3</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="user1" class="com.bt.domain.User">
+        <property name="name" value="Tom"></property>
+        <property name="addr" value="BJ"></property>
+    </bean>
+    <bean id="user2" class="com.bt.domain.User">
+        <property name="name" value="ACE"></property>
+        <property name="addr" value="SH"></property>
+    </bean>
+
 </beans>
